@@ -1,0 +1,89 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+html {
+    height: 100vh;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+span,
+ol {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-width: 25rem;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container {
+    width: 100%;
+    max-width: 40rem;
+    /* margin: 2em 0 0 0; */
+    padding: 2em;
+
+    display: flex;
+    flex-direction: column;
+}
+.save-btn-container {
+    margin: 0.5em 0 1.5em;
+}
+.container > p {
+    margin-bottom: 0.5em;
+}
+.input {
+    width: 100%;
+    padding: 0.2em 0.4em;
+    font-size: 1.05em;
+    font-size: 1rem;
+}
+li {
+    list-style: none;
+}
+.btn {
+    font-weight: bold;
+    /* color: white; */
+    padding: 0.5em 1.5em;
+    border: none;
+}
+.save-btn,
+.save-tab-btn {
+    background-color: rgb(117, 218, 184);
+}
+.save-btn:hover,
+.save-btn:focus,
+.save-tab-btn:hover,
+.save-tab-btn:focus {
+    background-color: rgb(85, 204, 164);
+}
+.save-btn:active,
+.save-tab-btn:active {
+    background-color: rgb(58, 221, 167);
+}
+.save-btn:active,
+.save-tab-btn:active,
+.delete-btn:active {
+    transform: scale(0.95);
+}
+.delete-btn {
+    color: rgb(236, 236, 236);
+    background-color: rgb(206, 13, 13);
+}
+
+.delete-btn:hover,
+.delete-btn:focus {
+    background-color: rgb(231, 68, 68);
+}

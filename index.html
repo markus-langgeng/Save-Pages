@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- Create an input element w/ type="text" and id="input-el" -->
+        <!-- Cerate save input btn w/ id="input-btn" -->
+        <div class="container">
+            <input id="input-el" class="input" type="text" />
+            <div class="save-btn-container">
+                <button id="save-page" class="btn save-btn">SAVE PAGE</button>
+                <button id="save-tab" class="btn save-tab-btn">SAVE TAB</button>
+                <button id="delete-all" class="btn delete-btn">
+                    DELETE ALL
+                </button>
+            </div>
+            <p id="saved-pages">Saved Pages:</p>
+            <ol class="list-of-pages"></ol>
+        </div>
+
+        <script src="index.js"></script>
+    </body>
+</html>
