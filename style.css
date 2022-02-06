@@ -17,7 +17,8 @@ h6,
 p,
 div,
 span,
-ol {
+ol,
+ul {
     margin: 0;
     padding: 0;
 }
@@ -32,7 +33,6 @@ body {
 .container {
     width: 100%;
     max-width: 40rem;
-    /* margin: 2em 0 0 0; */
     padding: 2em;
 
     display: flex;
@@ -42,20 +42,31 @@ body {
     margin: 0.5em 0 1.5em;
 }
 .container > p {
+    font-size: 0.8rem;
     margin-bottom: 0.5em;
 }
 .input {
     width: 100%;
     padding: 0.2em 0.4em;
-    font-size: 1.05em;
     font-size: 1rem;
 }
-li {
+.list-item {
     list-style: none;
+}
+.list-item + .list-item {
+    margin-top: 0.5em;
+}
+.list-item > a {
+    font-size: 0.85rem;
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    /* Instead use this non-standard one: */
+    word-break: break-word;
 }
 .btn {
     font-weight: bold;
-    /* color: white; */
     padding: 0.5em 1.5em;
     border: none;
 }

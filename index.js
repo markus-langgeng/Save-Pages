@@ -21,25 +21,28 @@ if (linksFromLocalStroage) {
     renderPageList(true);
 }
 
-//Save button
-savePageBtn.addEventListener("click", () => {
-    let newUrl = inputEl.value;
-    let linkName = newUrl.replace(/(^http(?:s|):\/\/)/, "");
-    if (newUrl === "") {
+const filterUrl = (link, name) => {
+    if (link === "" || link === undefined) {
         return false;
-    } else if (newUrl.match(/(^http(?:s|):\/\/)/)) {
-        pageLinks.push(newUrl);
-        pageNames.push(linkName);
+    } else if (link.match(/(^http(?:s|):\/\/)/)) {
+        pageLinks.push(link);
+        pageNames.push(name);
     } else {
-        newUrl = "http://".concat(newUrl);
-        pageLinks.push(newUrl);
-        pageNames.push(linkName);
+        link = "http://".concat(link);
+        pageLinks.push(link);
+        pageNames.push(name);
     }
-
     //simpan ke local storage
     localStorage.setItem("savedPages", JSON.stringify(pageLinks));
     localStorage.setItem("savedNamePages", JSON.stringify(pageNames));
     renderPageList(false);
+};
+
+//Save button
+savePageBtn.addEventListener("click", () => {
+    let newUrl = inputEl.value;
+    let linkName = newUrl.replace(/(^http(?:s|):\/\/)/, "");
+    filterUrl(newUrl, linkName);
 });
 
 //Save Tab Button
@@ -47,20 +50,7 @@ saveTabBtn.addEventListener("click", () => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tab) {
         let newUrl = tab[0].url;
         let linkName = newUrl.replace(/(^http(?:s|):\/\/)/, "");
-        if (newUrl === "") {
-            return false;
-        } else if (newUrl.match(/(^http(?:s|):\/\/)/)) {
-            pageLinks.push(newUrl);
-            pageNames.push(linkName);
-        } else {
-            newUrl = "http://".concat(newUrl);
-            pageLinks.push(newUrl);
-            pageNames.push(linkName);
-        }
-        //simpan ke local storage
-        localStorage.setItem("savedPages", JSON.stringify(pageLinks));
-        localStorage.setItem("savedNamePages", JSON.stringify(pageNames));
-        renderPageList(false);
+        filterUrl(newUrl, linkName);
     });
 });
 
@@ -72,12 +62,11 @@ deleteAllBtn.addEventListener("dblclick", () => {
 
     const listItemEl = document.querySelectorAll(".list-item");
     listItemEl.forEach((item) => {
-        console.log(item);
         item.remove();
     });
 });
 
-const handleOneClickDelete = function () {
+const handleDelete1Click = function () {
     savedPages.insertAdjacentHTML(
         "beforebegin",
         '<p class="delete-message">Double-click to delete</p>'
@@ -85,24 +74,27 @@ const handleOneClickDelete = function () {
     setTimeout(() => {
         let deleteMessage =
             document.getElementsByClassName("delete-message")[0];
-        console.log(deleteMessage);
         deleteMessage.remove();
-    }, 5000);
-    deleteAllBtn.removeEventListener("click", handleOneClickDelete);
+    }, 3500);
+    deleteAllBtn.removeEventListener("click", handleDelete1Click);
 };
-deleteAllBtn.addEventListener("click", handleOneClickDelete);
+deleteAllBtn.addEventListener("click", handleDelete1Click);
 
-function renderPageList(loadAll) {
-    // let index;
-    if (loadAll) {
-        for (let i = 0; i < pageLinks.length; i++) {
+function renderPageList(renderAll) {
+    if (renderAll) {
+        for (let i = pageLinks.length - 1; i >= 0; i--) {
             let listItem = `<li class="list-item"><a href="${pageLinks[i]}">${pageNames[i]}</a></li>`;
             pageList.insertAdjacentHTML("afterend", listItem);
         }
     } else {
         index = pageLinks.length - 1;
         let listItem = `<li class="list-item"><a href="${pageLinks[index]}" target="\_blank">${pageNames[index]}</a></li>`;
-        pageList.insertAdjacentHTML("afterend", listItem);
+        const liEl = document.querySelector(".list-item:last-of-type");
+        if (liEl) {
+            liEl.insertAdjacentHTML("afterend", listItem);
+        } else {
+            pageList.insertAdjacentHTML("afterend", listItem);
+        }
     }
     inputEl.value = "";
 }
